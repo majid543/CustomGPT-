@@ -5,15 +5,13 @@ from openai import OpenAI
 from fastapi import FastAPI, HTTPException, Security, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
-
-import pinecone
+from pinecone import Pinecone
 
 load_dotenv()
 
 # uvicorn app:app --host 0.0.0.0 --port 10000
 app = FastAPI()
 
-# Setup environment variables
 openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 pinecone_api_key = os.getenv("PINECONE_API_KEY")
 
