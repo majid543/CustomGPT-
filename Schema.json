@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Get Context for User's Query",
-    "description": "This API retrieves contextual information for a user's query from a vector database to avoid hallucination.",
+    "description": "This API retrieves contextual information for a user's query from a vector database to avoid hallucination and to have a more refined answer as per data ",
     "version": "v1.0.0"
   },
   "servers": [
@@ -14,7 +14,7 @@
     "/": {
       "post": {
         "summary": "Get Context",
-        "description": "Receive a query and return contextual information.",
+        "description": "Post a query that user has asked and return contextual information.",
         "operationId": "GetContext",
         "x-openapi-is-consequential": true,
         "requestBody": {
