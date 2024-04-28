@@ -22,6 +22,8 @@ pc1 = Pinecone(
     )
 index = pc1.Index(index_name)
 
+# Middleware to secure HTTP endpoint
+security = HTTPBearer()
 
 
 
@@ -40,16 +42,20 @@ class QueryModel(BaseModel):
     query: str
 
 
+
+
 @app.post("/")
 async def get_context(
-    query_data: QueryModel,):
+    query_data: QueryModel,
+    credentials: HTTPAuthorizationCredentials = Depends(validate_token),
+):
     # convert query to embeddings
     res = openai_client.embeddings.create(
         input=[query_data.query], model="text-embedding-ada-002"
     )
     embedding = res.data[0].embedding
     # Search for matching Vectors
-    results = index.query(vector=embedding, top_k=3, include_metadata=True).to_dict()
+    results = index.query(embedding, top_k=3, include_metadata=True).to_dict()
     # Filter out metadata fron search result
     context = [match["metadata"]["text"] for match in results["matches"]]
     # Retrun context
