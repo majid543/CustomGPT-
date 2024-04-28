@@ -22,8 +22,7 @@ pc1 = Pinecone(
     )
 index = pc1.Index(index_name)
 
-# Middleware to secure HTTP endpoint
-security = HTTPBearer()
+
 
 
 def validate_token(
