@@ -42,7 +42,7 @@ class QueryModel(BaseModel):
 
 @app.post("/")
 async def get_context(
-    query_data: QueryModel,
+    query_data: QueryModel,):
     # convert query to embeddings
     res = openai_client.embeddings.create(
         input=[query_data.query], model="text-embedding-ada-002"
