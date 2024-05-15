@@ -16,7 +16,7 @@ openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 pinecone_api_key = os.getenv("PINECONE_API_KEY")
 
 # Initialize pinecone client
-index_name = "newgptindex"
+index_name = "rawai"
 pc1 = Pinecone(
         api_key=pinecone_api_key
     )
@@ -55,7 +55,7 @@ async def get_context(
     )
     embedding = res.data[0].embedding
     # Search for matching Vectors
-    results = index.query(vector=embedding, top_k=6, include_metadata=True).to_dict()
+    results = index.query(vector=embedding, top_k=4, include_metadata=True).to_dict()
     # Filter out metadata fron search result
     context = [match["metadata"]["text"] for match in results["matches"]]
     # Retrun context
